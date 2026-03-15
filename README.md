@@ -1,0 +1,1 @@
+ERP Personal project combination with AI
