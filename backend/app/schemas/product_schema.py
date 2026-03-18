@@ -18,9 +18,29 @@ class ProductUpdate(BaseModel):
   category_id: Optional[int] = None
   brand_id: Optional[int] = None
   description: Optional[str] = None
+class CategorySimple(BaseModel):
+  id: int
+  name: str
+
+  class Config:
+    from_attributes = True
+
+class BrandSimple(BaseModel):
+  id: int
+  name: str
+
+  class Config:
+    from_attributes = True
 
 class ProductResponse(ProductBase):
   id: int
+  sku: str
+  name: str
+
+  category: CategorySimple | None = None
+  brand: BrandSimple | None = None
+
+  description: Optional[str]
   created_at: Optional[datetime]
   updated_at: Optional[datetime]
 

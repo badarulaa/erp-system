@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, Index
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class Product(Base):
@@ -14,8 +15,12 @@ class Product(Base):
   id = Column(Integer, primary_key=True, index=True)
   sku = Column(String(50), unique=True, nullable=False)
   name = Column(String(255), nullable=False)
-  category_id = Column(Integer)
-  brand_id = Column(Integer)
+  category_id = Column(Integer, ForeignKey("product_category.id"))
+  brand_id = Column(Integer, ForeignKey("brand.id"))
+
+  category = relationship("ProductCategory")
+  brand = relationship("Brand")
+
   description = Column(Text)
   created_at = Column(DateTime(timezone=True), server_default=func.now())
   updated_at = Column(DateTime(timezone=True), onupdate=func.now())

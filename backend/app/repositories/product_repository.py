@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.models.product import Product
 from app.schemas.product_schema import ProductCreate, ProductUpdate
 
@@ -10,10 +10,16 @@ def create_product(db: Session, product: ProductCreate):
   return db_product
 
 def get_products(db: Session):
-  return db.query(Product).all()
+  return db.query(Product).options(
+    joinedload(Product.category),
+    joinedload(Product.brand)
+  ).all()
 
 def get_product_by_id(db: Session, product_id: int):
-  return db.query(Product).filter(Product.id == product_id).first()
+  return db.query(Product).options(
+    joinedload(Product.category),
+    joinedload(Product.brand)
+    .filter(Product.id == product_id).first())
 
 def update_product(db: Session, product_id: int, product: ProductUpdate):
   db_product = get_product_by_id(db, product_id)
