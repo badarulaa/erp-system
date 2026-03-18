@@ -1,14 +1,14 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.schemas.product_schema import ProductCreate, ProductUpdate
 from app.repositories import product_repository
 
 def create_product(db: Session, product: ProductCreate):
-  existing = product_repository.get_product(db)
-  for item in existing:
-    if item.sku == product.sku:
-      raise ValueError("SKU already exists")
-
-  return product_repository.create_product(db, product)
+  try:
+    return product_repository.create_product(db, product)
+  except IntegrityError:
+    db.rollback()
+    raise ValueError("SKU already exists")
 
 def get_products(db: Session):
   return product_repository.get_products(db)

@@ -1,9 +1,13 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, Index
 from sqlalchemy.sql import func
 from app.core.database import Base
 
 class Product(Base):
   __tablename__ = "product"
+
+  __table_args__ = (
+    Index("idx_product_sku", "sku"),
+  )
 
   id = Column(Integer, primary_key=True, index=True)
   sku = Column(String(50), unique=True, nullable=False)
