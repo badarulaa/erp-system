@@ -7,6 +7,8 @@ class Product(Base):
 
   __table_args__ = (
     Index("idx_product_sku", "sku"),
+    Index("idx_product_category", "category_id"),
+    Index("idx_product_brand", "brand_id"),
   )
 
   id = Column(Integer, primary_key=True, index=True)
