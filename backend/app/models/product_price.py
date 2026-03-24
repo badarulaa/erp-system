@@ -9,6 +9,5 @@ class ProductPrice(Base):
   product_id = Column(Integer, ForeignKey("product.id"))
   price_type_id = Column(Integer, ForeignKey("price_type.id"))
   price = Column(Numeric(15, 2), nullable=False)
-  product = relationship("Product")
+  product = relationship("Product", back_populates="prices")
   price_type = relationship("PriceType")
-  

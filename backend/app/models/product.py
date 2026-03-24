@@ -21,6 +21,8 @@ class Product(Base):
   category = relationship("ProductCategory")
   brand = relationship("Brand")
 
+  prices = relationship("ProductPrice", back_populates="product")
+
   description = Column(Text)
   created_at = Column(DateTime(timezone=True), server_default=func.now())
   updated_at = Column(DateTime(timezone=True), onupdate=func.now())

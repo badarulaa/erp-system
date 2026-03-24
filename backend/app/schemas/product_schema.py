@@ -1,3 +1,4 @@
+from __future__ import annotations
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
@@ -32,13 +33,16 @@ class BrandSimple(BaseModel):
   class Config:
     from_attributes = True
 
+class PriceItem(BaseModel):
+  type: str
+  price: float
 class ProductResponse(ProductBase):
   id: int
-  sku: str
-  name: str
 
   category: CategorySimple | None = None
   brand: BrandSimple | None = None
+
+  prices: list[PriceItem] = []
 
   description: Optional[str]
   created_at: Optional[datetime]
@@ -46,3 +50,5 @@ class ProductResponse(ProductBase):
 
   class Config:
     from_attributes = True
+
+ProductResponse.model_rebuild()

@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session, joinedload
 from app.models.product import Product
 from app.schemas.product_schema import ProductCreate, ProductUpdate
+from app.models.product_price import ProductPrice
+from app.models.price_type import PriceType
 
 def create_product(db: Session, product: ProductCreate):
   db_product = Product(**product.model_dump())
@@ -12,13 +14,15 @@ def create_product(db: Session, product: ProductCreate):
 def get_products(db: Session):
   return db.query(Product).options(
     joinedload(Product.category),
-    joinedload(Product.brand)
+    joinedload(Product.brand),
+    joinedload(Product.prices).joinedload(ProductPrice.price_type)
   ).all()
 
 def get_product_by_id(db: Session, product_id: int):
   return db.query(Product).options(
     joinedload(Product.category),
-    joinedload(Product.brand)
+    joinedload(Product.brand),
+    joinedload(Product.prices).joinedload(ProductPrice.price_type)
     .filter(Product.id == product_id).first())
 
 def update_product(db: Session, product_id: int, product: ProductUpdate):

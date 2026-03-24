@@ -10,6 +10,5 @@ class ProductPriceResponse(BaseModel):
   product_id: int
   price_type_id: int
   price: float
-
   class Config:
-    from_attributes: True
+    from_attributes = True
