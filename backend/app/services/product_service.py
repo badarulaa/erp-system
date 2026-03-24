@@ -31,6 +31,8 @@ def map_product(product):
     "id": product.id,
     "sku": product.sku,
     "name": product.name,
+    "category_id": product.category_id,
+    "brand_id": product.brand_id,
     "category": {
       "id": product.category.id,
       "name": product.category.name

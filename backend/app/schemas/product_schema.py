@@ -38,6 +38,8 @@ class PriceItem(BaseModel):
   price: float
 class ProductResponse(ProductBase):
   id: int
+  sku: str
+  name: str
 
   category: CategorySimple | None = None
   brand: BrandSimple | None = None
