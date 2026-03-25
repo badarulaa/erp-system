@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.models.stock_movement import StockMovement
 
 def create_movement(db: Session, data):
-  movement = StockMovement(**data.model_dump())
+  movement = StockMovement(**data)
   db.add(movement)
   db.commit()
   db.refresh(movement)
@@ -34,6 +34,25 @@ def get_stock_by_product_and_warehouse(db, product_id: int, warehouse_id: int):
       func.sum(
         case(
           (StockMovement.movement_type == "IN", StockMovement.qty)
+          (StockMovement.movement_type == "OUT", -StockMovement.qty),
+          else_=0
+        )
+      ),
+      0
+    )
+  ).filter(
+    StockMovement.product_id == product_id,
+    StockMovement.warehouse_id == warehouse_id
+  ).scalar()
+
+  return result
+
+def get_current_stock(db, product_id: int, warehouse_id: int):
+  result = db.query(
+    func.coalesce(
+      func.sum(
+        case(
+          (StockMovement.movement_type == "IN", StockMovement.qty),
           (StockMovement.movement_type == "OUT", -StockMovement.qty),
           else_=0
         )

@@ -8,7 +8,17 @@ def create_stock(db: Session, data):
   if data.qty <= 0:
     raise ValueError("qty must be > 0")
 
-  return stock_repository.create_movement(db, data)
+  if data.movement_type == "OUT":
+    current_stoock = stock_repository.get_current_stock(
+      db,
+      data.product_id,
+      data.warehouse_id
+    )
+
+    if current_stoock < data.qty:
+      raise ValueError("Insufficient stock")
+
+  return stock_repository.create_movement(db, data.model_dump())
 
 def get_stocks(db: Session):
   return stock_repository.get_movements(db)
