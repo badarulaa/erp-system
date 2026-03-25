@@ -18,3 +18,8 @@ def create_sales(db: Session, data):
 
   db.commit()
   return so
+
+def get_sales_items(db, sales_order_id: int):
+  return db.query(SalesOrderItem).filter(
+    SalesOrderItem.sales_order_id == sales_order_id
+  ).all()

@@ -9,3 +9,5 @@ from .purchase_order import PurchaseOrder
 from .purchase_order_item import PurchaseOrderItem
 from .sales_order import SalesOrder
 from .sales_order_item import SalesOrderItem
+from .invoice import Invoice
+from .payment import Payment
