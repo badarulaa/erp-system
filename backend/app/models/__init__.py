@@ -5,3 +5,5 @@ from .price_type import PriceType
 from .product_price import ProductPrice
 from .stock_movement import StockMovement
 from .warehouse import Warehouse
+from .purchase_order import PurchaseOrder
+from .purchase_order_item import PurchaseOrderItem

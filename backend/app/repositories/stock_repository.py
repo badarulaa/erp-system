@@ -65,3 +65,9 @@ def get_current_stock(db, product_id: int, warehouse_id: int):
   ).scalar()
 
   return result
+
+def get_movements_by_product(db, product_id: int, warehouse_id: int):
+  return db.query(StockMovement).filter(
+    StockMovement.product_id == product_id,
+    StockMovement.warehouse_id == warehouse_id
+  ).order_by(StockMovement.created_at.asc()).all()
