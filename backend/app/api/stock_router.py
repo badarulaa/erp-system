@@ -8,7 +8,7 @@ from app.services import stock_service
 router = APIRouter(prefix="/stocks", tags=["Stocks"])
 
 @router.post("/", response_model=StockResponse)
-def create__stock(data: StockCreate, db: Session = Depends(get_db)):
+def create_stock(data: StockCreate, db: Session = Depends(get_db)):
   try:
     return stock_service.create_stock(db, data)
   except ValueError as e:

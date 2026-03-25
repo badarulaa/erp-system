@@ -40,6 +40,7 @@ class ProductResponse(ProductBase):
   id: int
   sku: str
   name: str
+  stock: int
 
   category: CategorySimple | None = None
   brand: BrandSimple | None = None

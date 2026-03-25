@@ -3,6 +3,7 @@ from typing import Optional
 
 class StockCreate(BaseModel):
   product_id: int
+  warehouse_id: int
   qty: int
   movement_type: str
   note: Optional[str] = None
@@ -10,6 +11,7 @@ class StockCreate(BaseModel):
 class StockResponse(BaseModel):
   id: int
   product_id: int
+  warehouse_id: int
   qty: int
   movement_type: str
 
