@@ -11,3 +11,5 @@ from .sales_order import SalesOrder
 from .sales_order_item import SalesOrderItem
 from .invoice import Invoice
 from .payment import Payment
+from .role import Role
+from .user import User
