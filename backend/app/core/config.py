@@ -6,6 +6,9 @@ class Settings(BaseSettings):
   DATABASE_NAME: str
   DATABASE_USER: str
   DATABASE_PASSWORD: str
+  SECRET_KEY: str
+  ALGORITHM: str
+  ACCESS_TOKEN_EXPIRE_MINUTES: int
 
   @property
   def DATABASE_URL(self) -> str:
